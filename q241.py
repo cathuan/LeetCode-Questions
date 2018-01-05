@@ -80,24 +80,31 @@ class Solution2(object):
         return tuple(input.split("O"))
 
 
-# Way faster.. Happier now.
+# Way faster.. Happier now. 39ms and 80.66%.
 class Solution(object):
 
     def diffWaysToCompute(self, input):
+
+        # very simple AST. Split operators and numbers.
         tokens = re.split('(\\D)', input)
         self.nums = map(int, tokens[::2])
         operator_dict = {'+': operator.add, '-': operator.sub, '*': operator.mul}
         self.operators = map(lambda s: operator_dict[s], tokens[1::2])
+
         return self.construct_results(0, len(self.nums) - 1)
 
     def construct_results(self, i, j):
+
+        # base case
         if i == j:
             return [self.nums[i]]
 
-        left_results = self.construct_results(i, operator_index)
-        right_results = self.construct_results(operator_index + 1, j)
-        return [self.operators[operator_index](a, b) for operator_index in xrange(i, j)
-                for left_result in left_results for right_result in right_results]
+        # determine the first bracket split place.
+        # because any two valid items must be bracketed, there will not be duplicated result!
+        return [self.operators[operator_index](left_result, right_result)
+                for operator_index in xrange(i, j)
+                for left_result in self.construct_results(i, operator_index)
+                for right_result in self.construct_results(operator_index + 1, j)]
 
 
 if __name__ == "__main__":
