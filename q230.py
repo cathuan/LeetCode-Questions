@@ -5,8 +5,31 @@
 #         self.left = None
 #         self.right = None
 
+
+"""
+What if the BST is modified (insert/delete operations) often and you need to find the kth smallest
+frequently? How would you optimize the kthSmallest routine?
+
+Idea: Currently, the solution has O(n) complexity, where n = size of the tree. Think about the the
+tree [100,99,null,98,null,97,null,...,1,null]. Even k = 1, we need to go down the tree, which
+involes c*n operations.
+
+I think the better idea is to maintain a stack S with all the "left nodes" since root, i.e.
+S = Stack()
+node = root
+while node is not None:
+    S.push(node)
+    node = node.left
+
+and while doing inserting/deleting, we modify the stack accordingly. Note that we only need to push
+the Stack if we add a smallest value, or we pop (and maybe push a new node) the stack if we do
+deletion. Insertion and deletion will be slower by a constant time.
+
+Then, using the following solution, the process is O(k). We always start from the smallest element.
+"""
+# TODO: any better idea?
+
 # 79.77%
-# TODO: but if the BST is inserting/deleting often, how can we get this quickly? This is O(n)..
 class Solution(object):
 
     def kthSmallest(self, root, k):
