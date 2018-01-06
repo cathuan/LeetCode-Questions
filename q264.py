@@ -16,15 +16,19 @@ class Solution(object):
         """
 
         ugly_numbers = [1]
-        indices = [0, 0, 0]
-        multiples = [2, 3, 5]
+        i2, i3, i5 = 0, 0, 0
 
         while len(ugly_numbers) != n:
-            new_generated_nums = [ugly_numbers[indices[i]]*multiples[i] for i in range(3)]
-            min_value = min(new_generated_nums)
-            for i in range(3):
-                if min_value == new_generated_nums[i]:
-                    indices[i] += 1
+            v2, v3, v5 = ugly_numbers[i2]*2, ugly_numbers[i3]*3, ugly_numbers[i5]*5
+            min_value = min(v2, v3, v5)
+
+            if min_value == v2:
+                i2 += 1
+            if min_value == v3:
+                i3 += 1
+            if min_value == v5:
+                i5 += 1
+
             ugly_numbers.append(min_value)
 
         return ugly_numbers[-1]
@@ -32,5 +36,5 @@ class Solution(object):
 
 if __name__ == "__main__":
 
-    n = 10
+    n = 1000
     print Solution().nthUglyNumber(n)
