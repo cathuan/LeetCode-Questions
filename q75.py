@@ -22,4 +22,4 @@ class Solution(object):
                 nums[i] = 1
             else:
                 nums[i] = 2
-        
+                    
