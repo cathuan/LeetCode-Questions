@@ -16,8 +16,6 @@ class Solution(object):
         	num = nums[i]
         	next_max_dis = min(max(i+num, next_max_dis), len(nums)-1)
 
-        	
-        	print i, num, step, curr_max_dis, next_max_dis
         return step
 
 
