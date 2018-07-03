@@ -28,6 +28,7 @@ class Solution(object):
 
         return dp[len(s)][len(p)]
 
+
 if __name__ == '__main__':
 
     print Solution().isMatch(sys.argv[1], sys.argv[2])
