@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*
 
+
+# 这里我们用了interval dp，是一种比较基本的算法。
 class Solution(object):
 
 	def maxCoins(self, nums):
