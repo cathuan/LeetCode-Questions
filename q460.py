@@ -70,8 +70,9 @@ class LFUCache(object):
             self.freqs[node.frequency].delete(node)
             if self.freqs[node.frequency].length == 0:
                 del self.freqs[node.frequency]
+                if node.frequency == self.min_freq:
+                    self.min_freq += 1
             node.frequency += 1
-            self.min_freq = min(self.min_freq, node.frequency)
             if node.frequency not in self.freqs:
                 self.freqs[node.frequency] = DoublyLinkedList()
             self.freqs[node.frequency].push(node)
@@ -91,7 +92,8 @@ class LFUCache(object):
             self.freqs[node.frequency].delete(node)
             if self.freqs[node.frequency].length == 0:
                 del self.freqs[node.frequency]
-                self.min_freq += 1
+                if node.frequency == self.min_freq:
+                    self.min_freq += 1
             node.frequency += 1
             node.val = value
             if node.frequency not in self.freqs:
@@ -100,9 +102,9 @@ class LFUCache(object):
         else:
             if self.capacity == 0:
                 return
-
+            
             # pop the least used node from cache
-            if len(self.values) > self.capacity:
+            if len(self.values) >= self.capacity:
                 poped_node = self.freqs[self.min_freq].popleft()
                 if poped_node is not None:
                     del self.values[poped_node.key]
@@ -122,3 +124,4 @@ class LFUCache(object):
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
