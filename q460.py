@@ -102,7 +102,7 @@ class LFUCache(object):
         else:
             if self.capacity == 0:
                 return
-            
+
             # pop the least used node from cache
             if len(self.values) >= self.capacity:
                 poped_node = self.freqs[self.min_freq].popleft()
@@ -124,4 +124,3 @@ class LFUCache(object):
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
-
