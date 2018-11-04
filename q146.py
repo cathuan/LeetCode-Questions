@@ -1,5 +1,4 @@
 class Node(object):
-
     def __init__(self, key=None, val=None):
         self.key = key
         self.val = val
@@ -8,7 +7,6 @@ class Node(object):
 
 
 class DoublyLinkedList(object):
-
     def __init__(self):
         self.sentinal = Node()
         self.sentinal.prev = self.sentinal
@@ -28,7 +26,7 @@ class DoublyLinkedList(object):
     def pop(self):
         if self.length == 0:
             return None
-        
+
         self.length -= 1
         tail = self.sentinal.prev
         self.sentinal.prev = tail.prev
@@ -54,7 +52,6 @@ class DoublyLinkedList(object):
 
 
 class LRUCache(object):
-
     def __init__(self, capacity):
         """
         :type capacity: int
@@ -91,7 +88,7 @@ class LRUCache(object):
             node = self.values_dict[key]
             assert node.key == key
             self.values.delete(node)
-            new_node = self.values.push(key, value) 
+            new_node = self.values.push(key, value)
             self.values_dict[key] = new_node
         else:
             if self.values.length == self.capacity:

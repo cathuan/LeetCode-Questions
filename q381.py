@@ -2,14 +2,12 @@ import random
 
 
 class RandomizedCollection(object):
-
     def __init__(self):
         """
         Initialize your data structure here.
         """
         self.values = []  # [value]
         self.indices = {}  # value -> set([index])
-        
 
     # append val at the end of self.values to keep a record
     # add the index of the newly added val in self.indices so it's easier to get an index of the value when we need
@@ -62,7 +60,7 @@ class RandomizedCollection(object):
         :rtype: int
         """
 
-        index = random.randint(0, len(self.values)-1)
+        index = random.randint(0, len(self.values) - 1)
         return self.values[index]
 
 
