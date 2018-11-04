@@ -1,6 +1,5 @@
 # Disjointed-Set Union
 class DSU(object):
-
     def __init__(self):
         self.parents = range(1001)
         self.ranks = [0] * 1001
