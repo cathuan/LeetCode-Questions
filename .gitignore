@@ -2,3 +2,4 @@
 *.lprof
 .tags*
 *.pyc
+*.json
