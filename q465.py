@@ -1,5 +1,6 @@
 # A naive DFS solution which passes the test with low efficiency.
 # There should be a better solution.
+# Check a solution at https://leetcode.com/problems/optimal-account-balancing/discuss/173299/Python-BFS-beats-100
 
 
 class Solution(object):
