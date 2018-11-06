@@ -23,7 +23,7 @@ class SummaryRanges(object):
         :type val: int
         :rtype: void
         """
-        if len(self.intervals) == 0:
+        if not self.intervals:
             self.intervals.append(Interval(val, val))
             return
 

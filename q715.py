@@ -37,7 +37,7 @@ class RangeModule(object):
         :type right: int
         :rtype: bool
         """
-        if len(self.ranges) == 0:
+        if not self.ranges:
             return False
 
         i = bisect.bisect_left(self.ranges, (left, float('inf')))
