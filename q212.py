@@ -1,96 +1,68 @@
-from collections import defaultdict
+import collections
 
 
-class Node(object):
-
-    def __init__(self, char, row, col):
-        self.char = char
-        self.children = defaultdict(list)
-        self.row = row
-        self.col = col
+class TrieNode(object):
+    def __init__(self):
+        self.children = collections.defaultdict(TrieNode)
+        self.isWord = False
 
 
-class Board(object):
+class Trie(object):
+    def __init__(self):
+        self.root = TrieNode()
 
-    def __init__(self, board):
-        self.board = board
-        self.rows = len(board)
-        self.cols = 0 if self.rows == 0 else len(board[0])
-        self.nodes = {}
-
-        for r in range(self.rows):
-            for c in range(self.cols):
-                self.insert(r, c)
-
-    def getNeighbour(self, row, col):
-        neighbours = []
-        for row_, col_ in [(row+1, col), (row-1, col), (row, col+1), (row, col-1)]:
-            if 0 <= row_ <= self.rows-1 and 0 <= col_ <= self.cols-1:
-                neighbours.append((row_, col_))
-        return neighbours
-
-    def getNode(self, row, col):
-        if (row, col) not in self.nodes:
-            char = self.board[row][col]
-            node = Node(char, row, col)
-            self.nodes[(row, col)] = node
-        return self.nodes[(row, col)]
-
-    def insert(self, row, col):
-        nodeInsert = self.getNode(row, col)
-        for r, c in self.getNeighbour(row, col):
-            node = self.getNode(r, c)
-            node.children[nodeInsert.char].append(nodeInsert)
-            nodeInsert.children[node.char].append(node)
-
-    def query(self, word):
-        if len(word) == 0:
-            return False
-
-        for r in range(self.rows):
-            for c in range(self.cols):
-                if self.board[r][c] == word[0]:
-                    node = self.getNode(r, c)
-                    seen = set()
-                    seen.add((node.row, node.col))
-                    for i in range(1, len(word)):
-                        char = word[i]
-                        #print "*", i, char
-                        if char in node.children:
-                            for curNode in node.children[char]:
-                                if (curNode.row, curNode.col) not in seen:
-                                    node = curNode
-                                    seen.add((node.row, node.col))
-                                    #print node.row, node.col, node.char
-                                    break
-                            else:
-                                break
-                        else:
-                            break
-                    else:
-                        return True
-        return False
+    def insert(self, word):
+        node = self.root
+        for w in word:
+            node = node.children[w]
+        node.isWord = True
 
 
 class Solution(object):
-    def findWords(self, board, words):
-        """
-        :type board: List[List[str]]
-        :type words: List[str]
-        :rtype: List[str]
-        """
 
-        b = Board(board)
-        ret = []
-        for word in words:
-            if b.query(word) and word not in ret:
-                ret.append(word)
-        return ret
+    def findWords(self, board, words):
+        res = []
+        trie = Trie()
+        node = trie.root
+
+        # construct trie with words
+        for w in words:
+            trie.insert(w)
+
+        # use dfs to search all possible words constructed by board.
+        # if one of the word is stored in trie, append it in the res.
+        for i in xrange(len(board)):
+            for j in xrange(len(board[0])):
+                self.dfs(board, node, i, j, "", res)
+
+        return res
+
+    def dfs(self, board, node, i, j, path, res):
+        if node.isWord:
+            res.append(path)
+            node.isWord = False
+
+        # return if the cell is outside of the board
+        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]):
+            return
+
+        tmp = board[i][j]
+        node = node.children.get(tmp)
+        if not node:
+            return
+        board[i][j] = "#"
+        self.dfs(board, node, i + 1, j, path + tmp, res)
+        self.dfs(board, node, i - 1, j, path + tmp, res)
+        self.dfs(board, node, i, j - 1, path + tmp, res)
+        self.dfs(board, node, i, j + 1, path + tmp, res)
+        board[i][j] = tmp
 
 
 if __name__ == "__main__":
-    board = [['a','a']
-    ]
-    words = ['aaa']
+    board = [["b", "a", "a", "b", "a", "b"], ["a", "b", "a", "a", "a", "a"],
+             ["a", "b", "a", "a", "a", "b"], ["a", "b", "a", "b", "b", "a"],
+             ["a", "a", "b", "b", "a", "b"], ["a", "a", "b", "b", "b", "a"],
+             ["a", "a", "b", "a", "a", "b"]]
+    words = ["aabbbbabbaababaaaabababbaaba"]
 
     print Solution().findWords(board, words)
