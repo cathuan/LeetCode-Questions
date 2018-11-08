@@ -21,7 +21,10 @@ class Trie(object):
         :type word: str
         :rtype: void
         """
-        pass
+        node = self.root
+        for w in word:
+            node = node.children[w]
+        node.isWord = True
 
     def search(self, word):
         """
@@ -29,7 +32,12 @@ class Trie(object):
         :type word: str
         :rtype: bool
         """
-        pass
+        node = self.root
+        for w in word:
+            if w not in node.children:
+                return False
+            node = node.children[w]
+        return node.isWord
 
     def startsWith(self, prefix):
         """
@@ -37,7 +45,12 @@ class Trie(object):
         :type prefix: str
         :rtype: bool
         """
-        pass
+        node = self.root
+        for w in prefix:
+            if w not in node.children:
+                return False
+            node = node.children[w]
+        return True
 
 
 if __name__ == "__main__":
