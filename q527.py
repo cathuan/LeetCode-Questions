@@ -53,20 +53,30 @@ class Solution(object):
         for word, index in sorted([(word, index) for index, word in enumerate(words)]):
             groups[(word[0], word[-1], len(word))].append((word, index))
 
-        for wordGroup in groups.itervalues():
-            prefixTrie = Trie()
-            for word, _ in wordGroup:
-                prefixTrie.insert(word)
-
-            for word, index in wordGroup:
-                i = prefixTrie.search(word)
-                length = len(word)-2 - i
+        for wordGroup in groups.values():
+            wordGroup = sorted(wordGroup)
+            for index, (word, origIndex) in enumerate(wordGroup):
+                maxIndex = 1
+                if index >= 1:
+                    curMaxIndex = self.compare(wordGroup[index-1][0], word)
+                    maxIndex = max(maxIndex, curMaxIndex+1)
+                if index <= len(wordGroup)-2:
+                    curMaxIndex = self.compare(wordGroup[index+1][0], word)
+                    maxIndex = max(maxIndex, curMaxIndex+1)
+                length = len(word) - 1 - maxIndex
                 if length <= 1:
                     newWord = word
                 else:
-                    newWord = word[:i+1] + str(length) + word[-1]
-                ret[index] = newWord
+                    newWord = word[:maxIndex] + str(length) + word[-1]
+                ret[origIndex] = newWord
+
         return ret
+
+    def compare(self, word1, word2):
+        for index, (w1, w2) in enumerate(zip(word1, word2)):
+            #print "???", w1, w2, word1, word2
+            if w1 != w2:
+                return index
 
 
 if __name__ == "__main__":
