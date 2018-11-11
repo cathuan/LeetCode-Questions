@@ -10,7 +10,7 @@ class Solution(object):
 
         if len(A) <= 1:
             return False
-        
+
         totalSum = sum(A)
         average = Fraction(totalSum, len(A))
         A = [v - average for v in A]
