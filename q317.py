@@ -13,7 +13,7 @@ class Solution(object):
             for c in range(n):
                 if grid[r][c] == 1:
                     buildings += 1
-        
+
         hit = [[0] * n for _ in range(m)]
         dists = [[0] * n for _ in range(m)]
 
@@ -22,7 +22,7 @@ class Solution(object):
                 if grid[row][col] == 1:
                     if not self.BFS(row, col, buildings, grid, hit, dists):
                         return -1
-        
+
         minDist = float("inf")
         seen = False
         for row in range(m):
@@ -47,7 +47,7 @@ class Solution(object):
 
         while queue:
             x, y, dist = queue.popleft()
-            for i, j in [(x+1,y), (x-1,y), (x,y+1), (x,y-1)]:
+            for i, j in [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]:
                 if i < 0 or i >= m or j < 0 or j >= n or visited[i][j]:
                     continue
                 visited[i][j] = True
