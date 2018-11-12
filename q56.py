@@ -4,13 +4,14 @@
 #         self.start = s
 #         self.end = e
 
+
 class Solution(object):
     def merge(self, intervals):
         """
         :type intervals: List[Interval]
         :rtype: List[Interval]
         """
-        
+
         intervals = sorted(intervals, key=lambda interval: interval.start)
 
         res = []
@@ -28,5 +29,5 @@ class Solution(object):
                     prev.end = interval.end
             else:
                 res.append(interval)
-        
+
         return res

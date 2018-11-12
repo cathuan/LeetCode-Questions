@@ -11,8 +11,8 @@ class Solution(object):
         ncols = len(obstacleGrid[0])
 
         dp = []
-        for _ in range(nrows):
-            dp.append([0] * ncols)
+        for _ in range(nrows+1):
+            dp.append([0] * (ncols+1))
 
         for r in range(nrows - 1, -1, -1):
             for c in range(ncols - 1, -1, -1):
@@ -21,15 +21,7 @@ class Solution(object):
                 elif r == nrows - 1 and c == ncols - 1:
                     dp[r][c] = 1
                 else:
-                    if c == ncols - 1:
-                        rightPath = 0
-                    else:
-                        rightPath = dp[r][c + 1]
-                    if r == nrows - 1:
-                        downPath = 0
-                    else:
-                        downPath = dp[r + 1][c]
-                    dp[r][c] = rightPath + downPath
+                    dp[r][c] = dp[r+1][c] + dp[r][c+1]
 
         return dp[0][0]
 
