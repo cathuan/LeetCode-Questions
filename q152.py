@@ -1,66 +1,56 @@
-class Solution(object):
+from collections import namedtuple
 
+Record = namedtuple("Record", ["pos", "neg"])
+
+
+class Solution(object):
     def maxProduct(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
 
-        current_products = []
-        min_products = [Product()]
-        max_products = [Product()]
-        current_product = Product()
+        records = []
+        records.append(Record(None, None))
 
         for num in nums:
-            current_product.multiply(num)
-            current_products.append(current_product)
+            r = records[-1]
+            newRecord = self.getNew(r, num)
+            records.append(newRecord)
+        
+        r = records[-1]
+        if r.pos is None:
+            records.append(Record(r.neg, r.pos))
 
-            if min_products[-1] > current_product:
-                min_products.append(current_product)
-            else:
-                min_products.append(min_products[-1])
+        maxValue = float("-inf")
+        for r in records[1:]:
+            if r.pos is not None:
+                maxValue = max(maxValue, r.pos)
+        return maxValue
 
-            if max_products[-1] < current_product:
-                max_products.append(current_product)
-            else:
-                max_products.append(max_products[-1])
+    def getNew(self, oldRecord, num):
 
-        min_products = min_products[:-1]
-        max_products = max_products[:-1]
-
-        print current_products
-        print min_products
-        print max_products
-
-        max_value = None
-        for i in range(len(nums)):
-
-            current_max_value = max(current_products[i]/min_products[i], current_products[i]/max_products[i])
-            if max_value is None:
-                max_value = current_max_value
-            else:
-                max_value = max(current_max_value, max_value)
-        return max_value
-
-
-class Product(object):
-
-    def __init__(self):
-
-        self.value = 1
-        self.contains_zero = False
-        self.without_zero = 1
-
-    def multiply(self, num):
-        self.value *= num
         if num == 0:
-            self.contains_zero = True
+            return Record(0, 0)
+        elif num > 0:
+            if oldRecord.pos == 0 or oldRecord.pos is None:
+                pos = num
+            else:
+                pos = oldRecord.pos * num
+
+            neg = oldRecord.neg * num if oldRecord.neg is not None else None
+            return Record(pos, neg)
         else:
-            self.without_zero *= num
+            if oldRecord.pos == 0 or oldRecord.pos is None:
+                neg = num
+            else:
+                neg = oldRecord.pos * num
+
+            pos = oldRecord.neg * num if oldRecord.neg is not None else None
+            return Record(pos, neg)
 
 
 if __name__ == "__main__":
 
-    nums = [0, 2]
-    solution = Solution()
-    print solution.maxProduct(nums)
+    nums = [-2]
+    print Solution().maxProduct(nums)
