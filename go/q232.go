@@ -7,10 +7,10 @@ type MyQueue struct {
 }
 
 // Constructor Initialize your data structure here.
-func Constructor() MyQueue {
-	myQueue := new(MyQueue)
-	return *myQueue
-}
+//func Constructor() MyQueue {
+//	myQueue := new(MyQueue)
+//	return *myQueue
+//}
 
 // Push element x to the back of queue. */
 func (myQueue *MyQueue) Push(x int) {
