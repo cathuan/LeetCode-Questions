@@ -9,14 +9,19 @@ type TreeNode struct {
 
 func inorderTraversal(root *TreeNode) []int {
 	var res []int
-	return expand(root, res)
-}
+	var stack []*TreeNode
 
-func expand(node *TreeNode, res []int) []int {
-	if node != nil {
-		res = expand(node.Left, res)
-		res = append(res, node.Val)
-		res = expand(node.Right, res)
+	curNode := root
+	for (curNode != nil) || (len(stack) > 0) {
+		for curNode != nil {
+			stack = append(stack, curNode)
+			curNode = curNode.Left
+		}
+
+		curNode = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		res = append(res, curNode.Val)
+		curNode = curNode.Right
 	}
 	return res
 }

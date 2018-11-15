@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func scoreOfParentheses(S string) int {
 	var bracketStack []string
 	var scoreStack []int
@@ -37,10 +35,4 @@ func scoreOfParentheses(S string) int {
 		total = total + scoreStack[i]
 	}
 	return total
-}
-
-func main() {
-	s := "(()(())"
-	ret := scoreOfParentheses(s)
-	fmt.Println(ret)
 }
