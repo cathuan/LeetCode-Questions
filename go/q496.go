@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func nextGreaterElement(findNums []int, nums []int) []int {
 	var stack []int
 	buf := make(map[int]int)
@@ -34,11 +32,4 @@ func nextGreaterElement(findNums []int, nums []int) []int {
 	}
 
 	return ret
-}
-
-func main() {
-	nums1 := []int{4, 1, 2}
-	nums2 := []int{1, 3, 4, 2}
-	ret := nextGreaterElement(nums1, nums2)
-	fmt.Println(ret)
 }

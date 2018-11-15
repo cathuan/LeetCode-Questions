@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strconv"
 )
 
@@ -30,10 +29,4 @@ func calPoints(ops []string) int {
 	}
 
 	return score
-}
-
-func main() {
-	ops := []string{"5", "-2", "4", "C", "D", "9", "+", "+"}
-	score := calPoints(ops)
-	fmt.Println(score)
 }
