@@ -9,15 +9,17 @@ class Solution(object):
         for num in nums:
             minValue = min(num, minValue)
             minStack.append(minValue)
-        
+
         stack = []
         for i in range(len(nums)-1, -1, -1):
             num = nums[i]
             minValue = minStack[i]
             if num == minValue:
                 continue
-            if not stack:
-                stack.append(num)
-                continue
-            
-            while stack and stack[-1] < minValue:
+
+            while stack and stack[-1] <= minValue:
+                stack.pop()
+            if stack and stack[-1] < num:
+                return True
+            stack.append(num)
+        return False
