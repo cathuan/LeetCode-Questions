@@ -11,16 +11,31 @@ class BSTIterator(object):
         """
         :type root: TreeNode
         """
+        self.stack = []
+
+        node = root
+        while node is not None:
+            self.stack.append(node)
+            node = node.left
 
     def hasNext(self):
         """
         :rtype: bool
         """
+        return self.stack
 
     def next(self):
         """
         :rtype: int
         """
+        node = self.stack.pop()
+        val = node.val
+
+        node = node.right
+        while node is not None:
+            self.stack.append(node)
+            node = node.left
+        return val
 
 
 # Your BSTIterator will be called like this:
