@@ -1,17 +1,19 @@
 package main
 
+// StockSpanner is a struct
 type StockSpanner struct {
 	count   int
 	prices  []int
 	indices []int
 }
 
-func Constructor() StockSpanner {
-	span := new(StockSpanner)
-	span.count = 1
-	return *span
-}
+//func Constructor() StockSpanner {
+//	span := new(StockSpanner)
+//	span.count = 1
+//	return *span
+//}
 
+// Next get next
 func (span *StockSpanner) Next(price int) int {
 	for len(span.prices) > 0 {
 		prevPrice := span.prices[len(span.prices)-1]
@@ -34,7 +36,7 @@ func (span *StockSpanner) Next(price int) int {
 
 	span.prices = append(span.prices, price)
 	span.indices = append(span.indices, span.count)
-	span.count += 1
+	span.count++
 	return days
 }
 
