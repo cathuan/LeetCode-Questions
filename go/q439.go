@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func parseTernary(expression string) string {
 	var value string
 	var opIndices []int
@@ -50,7 +48,7 @@ func parseTernary(expression string) string {
 
 func process(stack []string, opIndices []int) {}
 
-func main() {
-	expression := "T?T?13:54:3"
-	fmt.Println(parseTernary(expression))
-}
+//func main() {
+//	expression := "T?T?13:54:3"
+//	fmt.Println(parseTernary(expression))
+//}
