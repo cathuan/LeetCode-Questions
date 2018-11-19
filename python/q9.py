@@ -8,20 +8,19 @@ class Solution(object):
         :rtype: bool
         """
         if x < 0:
-        	return False
+            return False
 
         if x == 0:
-        	return True
+            return True
 
-        length = int(np.log(x)/np.log(10)) + 1
+        length = int(np.log(x) / np.log(10)) + 1
 
-        front = (x - x / (10 ** ((length + 1)/2))) / (10 ** ((length + 1)/2))
-        end = x % (10 ** (length / 2))
+        front = (x - x / (10**((length + 1) / 2))) / (10**((length + 1) / 2))
+        end = x % (10**(length / 2))
 
         print front, end, length
 
         return (front + end) % 11 == 0
-        
 
 
 if __name__ == "__main__":
@@ -30,4 +29,3 @@ if __name__ == "__main__":
 
     s = solution.isPalindrome(11)
     print s
-    
