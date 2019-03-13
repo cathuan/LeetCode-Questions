@@ -5,6 +5,7 @@ import (
 	"strconv"
 )
 
+// IsNumeric is a method used to determine whether a string is numeric
 func IsNumeric(s string) bool {
 	_, err := strconv.ParseFloat(s, 64)
 	return err == nil
@@ -12,8 +13,6 @@ func IsNumeric(s string) bool {
 
 func decodeString(s string) string {
 	var stack []string
-	ret := ""
-	counts := -1
 	cur := ""
 	for i, c := range s {
 		char := string(c)
