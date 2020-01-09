@@ -15,13 +15,11 @@ class Solution(object):
 
         for i in range(nRows-1, -1, -1):
             for j in range(nCols-1, -1, -1):
-                if i < nRows - 1:
-                    value = min(grid[i][j] + grid[i][j+1], grid[i][j] + grid[i+1][j]) if j < nCols - 1 \
+                if i < nRows - 1 and j < nCols - 1:
+                    grid[i][j] = min(grid[i][j] + grid[i][j+1], grid[i][j] + grid[i+1][j]) if j < nCols - 1 \
                         else grid[i][j] + grid[i+1][j]
                 else:
-                    value = grid[i][j] + grid[i][j+1] if j < nCols - 1 else grid[i][j]
-                
-                grid[i][j] = value
+                    grid[i][j] = grid[i][j] + grid[i][j+1] if j < nCols - 1 else grid[i][j]
 
         return grid[0][0]
 
