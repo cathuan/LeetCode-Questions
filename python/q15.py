@@ -1,8 +1,5 @@
-from collections import defaultdict
-
-
 class Solution(object):
-    @profile
+
     def threeSum(self, nums):
         """
         :type nums: List[int]
@@ -11,7 +8,7 @@ class Solution(object):
 
         res = []
         nums.sort()
-        for i in xrange(len(nums)-2):
+        for i in range(len(nums)-2):
             if i > 0 and nums[i] == nums[i-1]:
                 continue
             l, r = i+1, len(nums)-1
@@ -365,4 +362,4 @@ if __name__ == "__main__":
     ]
 
     s = solution.threeSum(input_value)
-    print s
+    print(s)
