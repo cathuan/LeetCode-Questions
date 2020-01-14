@@ -18,10 +18,10 @@ class Solution:
                     else:
                         d[i] += [[candidate]]
 						
-				# see if i - candidate  exists in dicationary already
+				# see if i - candidate exists in dicationary already
                 elif i - candidate > 0 and i - candidate in d:
                     for num_set in d[i - candidate]:
-						# add candidate to the saved sets in d[i-candidate]
+						# add candidate to the saved sets in d[i - candidate]
                         x = num_set + [candidate]
                         if i not in d:
                             d[i] = [x]
@@ -32,6 +32,31 @@ class Solution:
             return []
         else:
             return d[target]
+
+
+class SolutionFaster:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        size = len(candidates)
+        if size <= 0:
+            return []
+        path = []
+        res = []
+        candidates.sort()
+        self.find_path(candidates, res, target, path, 0, size)
+        
+        return res
+    
+    def find_path(self, candidates, res, target, path, begin, end):
+        if target == 0:
+            res.append(path.copy())
+        
+        for i in range(begin,end):
+            left_num = target - candidates[i]
+            if left_num < 0:
+                break
+            path.append(candidates[i])
+            self.find_path(candidates,res,left_num,path,i,end)
+            path.pop()
 
 
 if __name__ == "__main__":
